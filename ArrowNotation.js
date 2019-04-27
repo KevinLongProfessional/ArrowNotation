@@ -33,13 +33,13 @@
                 var currentNode = currentDiv.childNodes[childIndex];
 
                 if (currentNode.nodeType == 3) {
-                    var notepadRegex = new RegExp("\\d+" + allowedCharacterRegex);
+                    var notepadRegex = new RegExp("\\d+" + allowedCharacterRegex, 'g');
                     var notepadNotation = currentNode.nodeValue.match(notepadRegex);
                     if (notepadNotation != null)
-                        for (var npnIndex = 0; npnIndex < notepadNotation.length; npnIndex++) {
-                            if (document.body.innerText.indexOf(currentNode.nodeValue.trim()) != -1)
-                            currentNode.nodeValue = currentNode.nodeValue.replace(notepadNotation[npnIndex], replaceNotePadNotation(notepadNotation[npnIndex]).trim()); //to do: find a better way to do this.
-                        }
+                        //if (document.body.innerText.indexOf(currentNode.nodeValue.trim()) != -1)
+                            for (var npnIndex = 0; npnIndex < notepadNotation.length; npnIndex++) {
+                                currentNode.nodeValue = currentNode.nodeValue.replace(notepadNotation[npnIndex], replaceNotePadNotation(notepadNotation[npnIndex]).trim());
+                            }
                 }
             }
         }
