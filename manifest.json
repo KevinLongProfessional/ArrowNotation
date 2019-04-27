@@ -1,0 +1,31 @@
+{
+  "name": "Arrow Notation for Fighting Games",
+  "version": "1.0",
+  "description": "Removes difficult to read notepad notation and replaces it with arrow notation.",
+  "permissions": [ "activeTab", "declarativeContent", "storage", "tabs" ],
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [ "*://*./*" ],
+      "js": [ "ArrowNotation.js" ]
+    }
+  ],
+  "background": {
+    "scripts": [ "initializeArrowNotation.js" ]
+  },
+  "page_action": {
+    "default_icon": {
+      "16": "images/ArrowNotation16.png",
+      "32": "images/ArrowNotation32.png",
+      "48": "images/ArrowNotation48.png",
+      "128": "images/ArrowNotation128.png"
+    }
+  },
+  "icons": {
+    "16": "images/ArrowNotation16.png",
+    "32": "images/ArrowNotation32.png",
+    "48": "images/ArrowNotation48.png",
+    "128": "images/ArrowNotation128.png"
+  },
+  "manifest_version": 2
+}
