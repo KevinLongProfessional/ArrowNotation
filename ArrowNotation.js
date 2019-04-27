@@ -36,7 +36,7 @@
                     var notepadRegex = new RegExp("\\d+" + allowedCharacterRegex, 'g');
                     var notepadNotation = currentNode.nodeValue.match(notepadRegex);
                     if (notepadNotation != null)
-                        //if (document.body.innerText.indexOf(currentNode.nodeValue.trim()) != -1)
+                        if (document.body.innerText.indexOf(currentNode.nodeValue.trim()) != -1)  //to do: find more efficient way to do this.
                             for (var npnIndex = 0; npnIndex < notepadNotation.length; npnIndex++) {
                                 currentNode.nodeValue = currentNode.nodeValue.replace(notepadNotation[npnIndex], replaceNotePadNotation(notepadNotation[npnIndex]).trim());
                             }
