@@ -24,7 +24,7 @@
         allowedCharacterRegex += ")";
 
         for (var divIndex = 0; divIndex < allDivs.length; divIndex++) {
-            if (allDivs[divIndex].childNodes === undefined)
+            if (allDivs[divIndex].childNodes === undefined || allDivs[divIndex].hidden == true)
                 break;
 
             var currentDiv = allDivs[divIndex];
@@ -37,7 +37,8 @@
                     var notepadNotation = currentNode.nodeValue.match(notepadRegex);
                     if (notepadNotation != null)
                         for (var npnIndex = 0; npnIndex < notepadNotation.length; npnIndex++) {
-                            currentNode.nodeValue = currentNode.nodeValue.replace(notepadNotation[npnIndex], replaceNotePadNotation(notepadNotation[npnIndex]).trim());
+                            if (document.body.innerText.indexOf(currentNode.nodeValue.trim()) != -1)
+                            currentNode.nodeValue = currentNode.nodeValue.replace(notepadNotation[npnIndex], replaceNotePadNotation(notepadNotation[npnIndex]).trim()); //to do: find a better way to do this.
                         }
                 }
             }
