@@ -21,25 +21,30 @@
             allowedCharacterRegex += allowedCharacters[acIndex].toLowerCase() + "|" + allowedCharacters[acIndex].toUpperCase() + "|"
         }
         allowedCharacterRegex = allowedCharacterRegex.substring(0, allowedCharacterRegex.length - 1); //remove last |
-        allowedCharacterRegex += ")";
+        allowedCharacterRegex += ")+";
 
         for (var divIndex = 0; divIndex < allDivs.length; divIndex++) {
-            if (allDivs[divIndex].childNodes === undefined || allDivs[divIndex].hidden == true)
+            if (allDivs[divIndex].childNodes === undefined || allDivs[divIndex].hidden == true )
                 break;
 
             var currentDiv = allDivs[divIndex];
 
-            for (var childIndex = 0; childIndex < currentDiv.childNodes.length; childIndex++) {
-                var currentNode = currentDiv.childNodes[childIndex];
+            var invisibleTags = ["STYLE", "SCRIPT", "NOSCRIPT", "IFRAME", "OBJECT"];
 
-                if (currentNode.nodeType == 3) {
-                    var notepadRegex = new RegExp("\\d+" + allowedCharacterRegex, 'g');
-                    var notepadNotation = currentNode.nodeValue.match(notepadRegex);
-                    if (notepadNotation != null)
-                        if (document.body.innerText.indexOf(currentNode.nodeValue.trim()) != -1)  //to do: find more efficient way to do this.
+            var computedStyle = getComputedStyle(currentDiv);
+            if (invisibleTags.indexOf(currentDiv.tagName) == -1 && computedStyle.visibility == "visible" && computedStyle.display!="none") {
+
+                for (var childIndex = 0; childIndex < currentDiv.childNodes.length; childIndex++) {
+                    var currentNode = currentDiv.childNodes[childIndex];
+
+                    if (currentNode.nodeType == 3) {
+                        var notepadRegex = new RegExp("\\d+" + allowedCharacterRegex, 'g');
+                        var notepadNotation = currentNode.nodeValue.match(notepadRegex);
+                        if (notepadNotation != null)
                             for (var npnIndex = 0; npnIndex < notepadNotation.length; npnIndex++) {
                                 currentNode.nodeValue = currentNode.nodeValue.replace(notepadNotation[npnIndex], replaceNotePadNotation(notepadNotation[npnIndex]).trim());
                             }
+                    }
                 }
             }
         }
